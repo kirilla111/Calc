@@ -1,5 +1,6 @@
 //Стековый компилятор формул.
 public class Compf extends Stack {
+    boolean b;
     //Типы символов (скобки, знаки операций, иное).
     protected final static int SYM_LEFT = 0,
             SYM_RIGHT = 1,
@@ -67,8 +68,9 @@ public class Compf extends Stack {
     }
 
     protected void nextOper(char c) {
-        System.out.print(c + " ");
-
+        if (!(Character.toString(c).matches("([0-9]|[a-z])+"))) {
+            System.out.print(c + " ");
+        }
     }
 
     protected void nextOther(char c) {
@@ -80,6 +82,7 @@ public class Compf extends Stack {
         processSymbol('(');
         for (int i = 0; i < str.length; i++) {
             if (Character.toString(str[i]).matches("([0-9]|[a-z])+")) {
+                processSymbol(str[i]);
                 str_1 += str[i];
                 if (i == str.length-1){
                     System.out.print(str_1+" ");
@@ -90,8 +93,8 @@ public class Compf extends Stack {
                 str_1 = "";
                 processSymbol(str[i]);
             }
-    }
+        }
         processSymbol(')');
         System.out.print("\n");
-}
+    }
 }
