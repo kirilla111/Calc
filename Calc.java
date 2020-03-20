@@ -1,5 +1,6 @@
 //Калькулятор арифметических формул.
 public class Calc extends Compf {
+    public static boolean a;
     private StackInt s;
 
     private static int char2int(char c) {
@@ -40,9 +41,8 @@ public class Calc extends Compf {
     @Override
     protected void nextOther(char c) {
         if (b) {
-            s.push(s.pop()*10+char2int(c));
-        }
-        else{
+            s.push(s.pop() * 10 + char2int(c));
+        } else {
             s.push(char2int(c));
         }
     }
@@ -53,7 +53,6 @@ public class Calc extends Compf {
 
     public final void compile(char[] str) {
         super.compile(str);
-
         System.out.println("" + s.top());
     }
 }

@@ -26,22 +26,18 @@ public class Compf extends Stack {
     private void processSymbol(char c) {
         switch (symType(c)) {
             case SYM_LEFT:
-                b = false;
                 push(c);
                 break;
             case SYM_RIGHT:
-                b = false;
                 processSuspendedSymbols(c);
                 pop();
                 break;
             case SYM_OPER:
-                b = false;
                 processSuspendedSymbols(c);
                 push(c);
                 break;
             case SYM_OTHER:
                 nextOther(c);
-                b = true;
                 break;
         }
     }
@@ -87,15 +83,18 @@ public class Compf extends Stack {
         for (int i = 0; i < str.length; i++) {
             if (Character.toString(str[i]).matches("([0-9]|[a-z])+")) {
                 processSymbol(str[i]);
+                b = true;
                 str_1 += str[i];
                 if (i == str.length-1){
                     System.out.print(str_1+" ");
                 }
             }
             else {
+                b = false;
                 System.out.print(str_1+" ");
                 str_1 = "";
                 processSymbol(str[i]);
+                b = false;
             }
         }
         processSymbol(')');
