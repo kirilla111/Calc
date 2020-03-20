@@ -1,6 +1,6 @@
 //Стековый компилятор формул.
 public class Compf extends Stack {
-    boolean b;
+    boolean b = false;
     //Типы символов (скобки, знаки операций, иное).
     protected final static int SYM_LEFT = 0,
             SYM_RIGHT = 1,
@@ -26,18 +26,22 @@ public class Compf extends Stack {
     private void processSymbol(char c) {
         switch (symType(c)) {
             case SYM_LEFT:
+                b = false;
                 push(c);
                 break;
             case SYM_RIGHT:
+                b = false;
                 processSuspendedSymbols(c);
                 pop();
                 break;
             case SYM_OPER:
+                b = false;
                 processSuspendedSymbols(c);
                 push(c);
                 break;
             case SYM_OTHER:
                 nextOther(c);
+                b = true;
                 break;
         }
     }
